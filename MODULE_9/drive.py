@@ -15,7 +15,7 @@ class Car:
         return
 
     def drive(self, hours):
-        self.travelled_dist=self.cur_speed*hours
+        self.travelled_dist+=self.cur_speed*hours
         return
 
 my_car = Car("ABC-123", 142)
