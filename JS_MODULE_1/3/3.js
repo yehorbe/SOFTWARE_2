@@ -1,0 +1,9 @@
+num1=parseInt(prompt('Enter first number'))
+num2=parseInt(prompt('Enter second number'))
+num3=parseInt(prompt('Enter Third number'))
+sum=(num1+num2+num3)
+product=(num1*num2*num3)
+average=((num1+num2+num3)/3)
+document.querySelector('#sum').innerHTML = 'Sum is ' + sum + '!';
+document.querySelector('#product').innerHTML = 'Product is ' + product + '!';
+document.querySelector('#average').innerHTML = 'Average is ' + average + '!';
