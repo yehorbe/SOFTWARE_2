@@ -1,25 +1,22 @@
-import mariadb
 from flask import Flask, jsonify
+import mariadb
 
 app = Flask(__name__)
-db_config = {
-    'host': '127.0.0.1',
-    'user': 'root',
-    'password': '150102',
-    'database': 'airport_game'
-}
+connection = mariadb.connect(
+    host = "127.0.0.1",
+    port = 3306,
+    user = "root",
+    password = "150102",
+    database = "flight_game",
+    autocommit = True
+)
 
 
-def get_airport_info(icao):
-    connection = mariadb.connector.connect(**db_config)
+def get_airport_info(connection, icao):
     cursor = connection.cursor(dictionary=True)
-
-    query = "SELECT name, iso_country FROM airport WHERE ident = %s"
-    cursor.execute(query, (icao,))
+    sql = "SELECT name, iso_country FROM airport WHERE ident = %s"
+    cursor.execute(sql, (icao,))
     result = cursor.fetchone()
-
-    cursor.close()
-    connection.close()
     return result
 
 
@@ -27,7 +24,7 @@ def get_airport_info(icao):
 @app.route('/airport/<icao>', methods=['GET'])
 def airport(icao):
     icao = icao.upper()
-    data = get_airport_info(icao)
+    data = get_airport_info(connection, icao)
     response = {
         "ICAO": icao,
         "Name": data['name'],
@@ -35,5 +32,4 @@ def airport(icao):
     }
     return jsonify(response)
 
-if __name__ == '__main__':
-    app.run(use_reloader=True, host='127.0.0.1', port=5000)
+app.run(use_reloader=True, host='127.0.0.1', port=5000)

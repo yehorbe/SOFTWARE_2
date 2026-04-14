@@ -53,10 +53,10 @@ class Race:
         return False
 
 
-ecar = ElectricCar("ABC-15", 180, 52.5)
-gcar = GasolineCar("ACD-123", 165, 32.3)
+e_car = ElectricCar("ABC-15", 180, 52.5)
+g_car = GasolineCar("ACD-123", 165, 32.3)
 
-cars_list = [ecar, gcar]
+cars_list = [e_car, g_car]
 
 race = Race("Grand Prix", 500, cars_list)
 
